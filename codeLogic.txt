@@ -1,22 +1,3 @@
-int main(void) {
-	readNumberOfTestCases;
-	if (validNumberOfTestCases)
-
-	while (!not_end_of_file) {
-		if(is_valid_map)
-			transform_map;
-	}
-}
-
-typedef struct s_info {
-	int width;
-	int heigth;
-	int nbr_of_testcases;
-	deque pool_of_evaluated_bits;
-}
-
-transform_map
-
 ##Program
 Read input as string.
 Store total test case count.
