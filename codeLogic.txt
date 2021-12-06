@@ -1,0 +1,58 @@
+int main(void) {
+	readNumberOfTestCases;
+	if (validNumberOfTestCases)
+
+	while (!not_end_of_file) {
+		if(is_valid_map)
+			transform_map;
+	}
+}
+
+typedef struct s_info {
+	int width;
+	int heigth;
+	int nbr_of_testcases;
+	deque pool_of_evaluated_bits;
+}
+
+transform_map
+
+##Program
+Read input as string.
+Store total test case count.
+Loop for total test case count or file end.
+
+#Test case:
+Store map parameters.
+- Create int array Map, one element for each pixel, first element is the distance of pixel (1,1) to the closest white pixel, last element is the distance of pixel (n,m) to the closest white pixel.
+- Create struct t_link deque, with pointer to the addresses of the white pixels in int array Map
+	- struct t_link {
+		pointer to element in int array Map;
+		bool travel west;
+		bool travel east;
+		bool travel north;
+		bool travel south;
+	};
+
+Validate and process map input:
+- Confirm at least one 1
+- Confirm all 01, and nothing else
+- Confirm correct amount of lines and chars per line.
+Meanwhile,
+- Store position of every white pixel (1) in struct t_link deque
+If error,
+- Free int array Map, free struct t_link deque, return error message, continue with next test case if possible.
+
+Solve transformation:
+Deque read loop
+- Read front link of deque.
+	- Set value of pointed element (original 0)
+	- Create new deque link at end of queue to travel west (if valid), set its pointer address to -1, set its value to +1, set its travel direction to W + N + S
+	- Create new deque link at end of queue to travel east (if valid), set its pointer address to +1, set its value to +1, set its travel direction to E + N + S
+	- Create new deque link at end of queue to travel north (if valid), set its pointer address to -(line size), set its value to +1, set its travel direction to N
+	- Create new deque link at end of queue to travel south (if valid), set its pointer address to (line size), set its value to +1, set its travel direction to S
+	- Shift link (remove current link from deque)
+
+Delete deque when done.
+Loop through every value of int array Map and print their values.
+Delete array when done.
