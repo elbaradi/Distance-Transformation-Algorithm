@@ -15,7 +15,7 @@ Store map parameters.
 		bool travel south;
 	};
 
-Validate and process map input:
+#Validate and process map input:
 - Confirm at least one 1
 - Confirm all 01, and nothing else
 - Confirm correct amount of lines and chars per line.
@@ -24,7 +24,7 @@ Meanwhile,
 If error,
 - Free int array Map, free struct t_link deque, return error message, continue with next test case if possible.
 
-Solve transformation:
+#Solve transformation:
 Deque read loop
 - Read front link of deque.
 	- Set value of pointed element (original 0)
@@ -34,6 +34,7 @@ Deque read loop
 	- Create new deque link at end of queue to travel south (if valid), set its pointer address to (line size), set its value to +1, set its travel direction to S
 	- Shift link (remove current link from deque)
 
+#Finishing up:
 Delete deque when done.
 Loop through every value of int array Map and print their values.
 Delete array when done.
