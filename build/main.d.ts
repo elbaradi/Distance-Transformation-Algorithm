@@ -14,9 +14,9 @@ declare function setMapDimensionsIfValid(dimensions: dimensions, dimensionsStrin
 declare function isValidMapLine(line: string, dimensions: dimensions): boolean;
 declare function mapIsValid(dimensions: dimensions, lines: string[], start: number): boolean;
 declare function inputError(errno: number): never;
-declare function locateWhitePixelsInLine(line: string, deque: dequeElement[], y: number): void;
+declare function findWhitePixelsInLine(line: string, deque: dequeElement[], y: number): void;
 declare function updateCurrentPixelDistanceToMap(distanceMap: number[], pixelIndex: number, pixelDistance: number): void;
-declare function calculateSurroundingPixelDistance(currentPixel: dequeElement, deque: dequeElement[]): void;
+declare function calculateDistanceOfSurroundingPixels(currentPixel: dequeElement, deque: dequeElement[]): void;
 declare function fillDistanceMap(distanceMap: number[], deque: any, dimensions: dimensions): void;
 declare function printDistanceMap(distanceMap: number[], width: number): void;
 interface dimensions {
@@ -36,5 +36,5 @@ declare const fs: any;
 declare const inputStringArray: string[];
 declare const arrayLength: number;
 declare var index: number;
-declare const nbrTests: number;
+declare const nbrOfTests: number;
 declare var dimensions: dimensions;

@@ -78,12 +78,12 @@ function inputError(errno: number) {
     return process.exit(-1);
 }
 
-function locateWhitePixelsInLine(line: string, deque: dequeElement[], y: number) {
+function findWhitePixelsInLine(line: string, deque: dequeElement[], y: number) {
     let index: number = line.length;
     while (index--) {
-    let pixelIsWhite: boolean = line[index] == WHITE;
-    if (pixelIsWhite)
-        deque.push({'distance': 0, 'x': index + 1, 'y': y, 'west': true, 'east': true, 'north': true, 'south': true});
+        let pixelIsWhite: boolean = line[index] == WHITE;
+        if (pixelIsWhite)
+            deque.push({'distance': 0, 'x': index + 1, 'y': y, 'west': true, 'east': true, 'north': true, 'south': true});
     }
 }
 
@@ -91,7 +91,7 @@ function updateCurrentPixelDistanceToMap(distanceMap: number[], pixelIndex: numb
     distanceMap[pixelIndex] = pixelDistance;
 }
 
-function calculateSurroundingPixelDistance(currentPixel: dequeElement, deque: dequeElement[]) {
+function calculateDistanceOfSurroundingPixels(currentPixel: dequeElement, deque: dequeElement[]) {
     if (currentPixel.west)
         deque.push({'distance': currentPixel.distance + 1, 'x': currentPixel.x - 1, 'y': currentPixel.y, 'west': true, 'east': false, 'north': true, 'south': true});
     if (currentPixel.east)
@@ -112,14 +112,14 @@ function fillDistanceMap(distanceMap: number[], deque: any, dimensions: dimensio
             deque.shift();
         else {
             updateCurrentPixelDistanceToMap(distanceMap, currentPixelIndex, currentPixel.distance);
-            calculateSurroundingPixelDistance(currentPixel, deque);
+            calculateDistanceOfSurroundingPixels(currentPixel, deque);
             deque.shift();
         }
     }
 }
 
 function printDistanceMap(distanceMap: number[], width: number) {
-    let outputString: string = distanceMap[0].toString();
+    let outputString: string = '\n' + distanceMap[0].toString();
     const indexEnd: number = dimensions.height * dimensions.width;
     let i: number = 1;
     while (i < indexEnd) {
@@ -130,6 +130,7 @@ function printDistanceMap(distanceMap: number[], width: number) {
         outputString += distanceMap[i];
         i++;
     }
+    outputString += '\n';
 
     console.log(outputString);
 }
@@ -149,26 +150,26 @@ interface dequeElement {
     south: boolean;
 }
 
-// Read input
+// CODE START
 const fs = require('fs');
 const inputStringArray: string[] = fs.readFileSync('/dev/stdin').toString().split('\n');
 const arrayLength: number = inputStringArray.length;
 var index: number = 0;
-const nbrTests: number = getNumberOfTests(inputStringArray[index]);
-if (nbrTests == 0 || nbrTests > 1000)
+const nbrOfTests: number = getNumberOfTests(inputStringArray[index]);
+if (nbrOfTests == 0 || nbrOfTests > 1000)
     inputError(ERR_INVALID_NBR_OF_TESTS);
 
 var dimensions: dimensions = { 'height': 0, 'width': 0};
-for (let i: number = 0; i < nbrTests; i++) {
+for (let i: number = 0; i < nbrOfTests; i++) {
     (index < arrayLength - 1) ? index++ : inputError(5);
     if (setMapDimensionsIfValid(dimensions, inputStringArray[index]) && mapIsValid(dimensions, inputStringArray, index)) {
         var distanceMap: number[] = new Array(dimensions.height * dimensions.width).fill(-1);
         var deque: any = new Denque(); // why can't we do deque: dequeElement[]?
         for (let j: number = 1; j <= dimensions.height; j++) {
-            locateWhitePixelsInLine(inputStringArray[index + j], deque, j);
+            findWhitePixelsInLine(inputStringArray[index + j], deque, j);
         }
-        var noWhitePixels: boolean = deque.isEmpty();
-        if (noWhitePixels)
+        var noWhitePixelsInMap: boolean = deque.isEmpty();
+        if (noWhitePixelsInMap)
             inputError(ERR_INVALID_MAP);
         fillDistanceMap(distanceMap, deque, dimensions);
         printDistanceMap(distanceMap, dimensions.width);

@@ -69,7 +69,7 @@ function inputError(errno) {
     console.log(errno + " Input error\n");
     return process.exit(-1);
 }
-function locateWhitePixelsInLine(line, deque, y) {
+function findWhitePixelsInLine(line, deque, y) {
     let index = line.length;
     while (index--) {
         let pixelIsWhite = line[index] == WHITE;
@@ -80,7 +80,7 @@ function locateWhitePixelsInLine(line, deque, y) {
 function updateCurrentPixelDistanceToMap(distanceMap, pixelIndex, pixelDistance) {
     distanceMap[pixelIndex] = pixelDistance;
 }
-function calculateSurroundingPixelDistance(currentPixel, deque) {
+function calculateDistanceOfSurroundingPixels(currentPixel, deque) {
     if (currentPixel.west)
         deque.push({ 'distance': currentPixel.distance + 1, 'x': currentPixel.x - 1, 'y': currentPixel.y, 'west': true, 'east': false, 'north': true, 'south': true });
     if (currentPixel.east)
@@ -100,13 +100,13 @@ function fillDistanceMap(distanceMap, deque, dimensions) {
             deque.shift();
         else {
             updateCurrentPixelDistanceToMap(distanceMap, currentPixelIndex, currentPixel.distance);
-            calculateSurroundingPixelDistance(currentPixel, deque);
+            calculateDistanceOfSurroundingPixels(currentPixel, deque);
             deque.shift();
         }
     }
 }
 function printDistanceMap(distanceMap, width) {
-    let outputString = distanceMap[0].toString();
+    let outputString = '\n' + distanceMap[0].toString();
     const indexEnd = dimensions.height * dimensions.width;
     let i = 1;
     while (i < indexEnd) {
@@ -117,27 +117,28 @@ function printDistanceMap(distanceMap, width) {
         outputString += distanceMap[i];
         i++;
     }
+    outputString += '\n';
     console.log(outputString);
 }
-// Read input
+// CODE START
 const fs = require('fs');
 const inputStringArray = fs.readFileSync('/dev/stdin').toString().split('\n');
 const arrayLength = inputStringArray.length;
 var index = 0;
-const nbrTests = getNumberOfTests(inputStringArray[index]);
-if (nbrTests == 0 || nbrTests > 1000)
+const nbrOfTests = getNumberOfTests(inputStringArray[index]);
+if (nbrOfTests == 0 || nbrOfTests > 1000)
     inputError(ERR_INVALID_NBR_OF_TESTS);
 var dimensions = { 'height': 0, 'width': 0 };
-for (let i = 0; i < nbrTests; i++) {
+for (let i = 0; i < nbrOfTests; i++) {
     (index < arrayLength - 1) ? index++ : inputError(5);
     if (setMapDimensionsIfValid(dimensions, inputStringArray[index]) && mapIsValid(dimensions, inputStringArray, index)) {
         var distanceMap = new Array(dimensions.height * dimensions.width).fill(-1);
         var deque = new Denque(); // why can't we do deque: dequeElement[]?
         for (let j = 1; j <= dimensions.height; j++) {
-            locateWhitePixelsInLine(inputStringArray[index + j], deque, j);
+            findWhitePixelsInLine(inputStringArray[index + j], deque, j);
         }
-        var noWhitePixels = deque.isEmpty();
-        if (noWhitePixels)
+        var noWhitePixelsInMap = deque.isEmpty();
+        if (noWhitePixelsInMap)
             inputError(ERR_INVALID_MAP);
         fillDistanceMap(distanceMap, deque, dimensions);
         printDistanceMap(distanceMap, dimensions.width);
