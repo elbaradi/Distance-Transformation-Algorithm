@@ -10,7 +10,7 @@ Read in a bitmap from standard input, apply distance transformation, and write t
 This task had to be completed in TypeScript.
 
 # Planned approach
-1. Write the code logic based in the C/C++ approach I'm familiar with.
+1. Write the code logic based on the C/C++ approach I'm familiar with. (codeLogix.txt)
     1. Input validation
     2. Transformation algorithm
     3. Output generation
@@ -33,3 +33,9 @@ The program reads from standard input. It's recommended to pipe a file with test
 ```
 cat test.txt | npm run start
 ```
+
+I've added some maps and a map generator script in the /test_maps folder. Generate your own test map:
+```
+./map_gen.pl (x) (y) (density)
+```
+where x y and density are all integers, and the density is a number between 0 and 2 * y. The higher the density, the more black pixels there are.
