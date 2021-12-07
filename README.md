@@ -34,7 +34,7 @@ The program reads from standard input. It's recommended to pipe a file with test
 cat test.txt | npm run start
 ```
 
-I've added some maps and a map generator script in the /test_maps folder. Generate your own test map:
+I've added some maps and a map generator script in the /test_maps folder. Generate your own test map (requires perl):
 ```
 ./map_gen.pl (x) (y) (density)
 ```
