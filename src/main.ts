@@ -1,5 +1,3 @@
-const WHITE = '1';
-
 import fs from 'fs'
 import Denque from 'denque'
 import {getNumberOfMaps} from './validation'
