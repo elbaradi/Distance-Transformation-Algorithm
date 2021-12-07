@@ -45,7 +45,7 @@ function printDistanceMap(distanceMap: number[], dimensions: Dimensions) {
 
 function printEmptyLine(moreMapsComing: boolean) {
     if (moreMapsComing)
-        console.log('\n');
+        console.log("");
 }
 
 function main() {
@@ -59,7 +59,8 @@ function main() {
         if (!(index < inputArray.length - 1))
             exitWithError("more maps expected");
         index++
-        if (setMapDimensionsIfValid(dimensions, inputArray[index]) && mapIsValid(dimensions, inputArray, index)) {
+        if (setMapDimensionsIfValid(dimensions, inputArray[index])
+            && mapIsValid(dimensions, inputArray, index)) {
             let distanceMap: number[] = new Array(dimensions.height * dimensions.width);
             let pixelDeque: any = new Denque();
             for (let j: number = 1; j <= dimensions.height; j++) {

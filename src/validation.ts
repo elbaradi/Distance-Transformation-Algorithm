@@ -86,6 +86,6 @@ export function mapIsValid(dimensions: Dimensions, lines: string[], start: numbe
 }
 
 export function exitWithError(errString: string) {
-    console.log("Input error: " + errString + '\n');
+    console.log("Input error: " + errString);
     return process.exit(0);
 }
