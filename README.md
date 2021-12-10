@@ -41,10 +41,10 @@ I've added some maps and a map generator script in the /test_maps folder. Genera
 where x y and density are all integers, and the density is a number between 0 and 2 * y. The higher the density, the more black pixels there are.
 
 # Feedback
-Readibility very good
-Better formatting: Use ESLint for formatting (or lookup thee Company Coding formatting standard, it makes my code more recognizable)
-Add a testfolder where I show that I test functions individually (and mention the expected output)
-Get rid of the nested for/if in my main
-In my readme explain my use of type any
-Some naming improvements: (const CHARCODEZERO instead of const ZERO, numberOfTests instead of nbrOfTests), for TS, the more verbose the better
+* Readibility very good
+* Better formatting: Use ESLint for formatting (or lookup thee Company Coding formatting standard, it makes my code more recognizable)
+* Add a testfolder where I show that I test functions individually (and mention the expected output)
+* Get rid of the nested for/if in my main
+* In my readme explain my use of type any
+* Some naming improvements: (const CHARCODEZERO instead of const ZERO, numberOfTests instead of nbrOfTests), for TS, the more verbose the better
 
